@@ -34,7 +34,7 @@ const LINKS = {
   vigieCoop: "",
 
   // Stages
-  slabRapport: "assets/files/rapports/stage_slab.pdf",
+  slabRapport: "https://drive.google.com/file/d/1_ELQTKoKy-eciZEjD1EQv7nKonXfXU5Y/view?usp=sharing",
   slabAttestation: ATT + "stage-s-lab-2026.jpg",
   ddsRapport: "assets/files/rapports/rapport-stage-dds-zou-2025.pdf",
   ddsAttestation: "",
