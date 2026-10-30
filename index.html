@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Charmant BALOGOUN | Modélisation mathématique et simulation numérique</title>
+  <meta name="description" content="Portfolio de Charmant BALOGOUN, élève ingénieur à l'ENSGMM : modélisation mathématique, simulation numérique et intelligence artificielle." />
+  <meta name="author" content="Charmant BALOGOUN" />
+  <meta name="theme-color" content="#1E77B8" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:url" content="https://charmantkoc.github.io/" />
+  <meta property="og:title" content="Charmant BALOGOUN | Modélisation mathématique et simulation numérique" />
+  <meta property="og:description" content="Élève ingénieur à l'ENSGMM : modélisation mathématique, simulation numérique et intelligence artificielle." />
+  <meta property="og:image" content="https://charmantkoc.github.io/assets/images/photo.png" />
+
+  <link rel="icon" href="data:," />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+</head>
+<body>
+
+  <header class="mobile-header">
+    <button class="mobile-menu-btn" id="menu-btn" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="sidebar">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <span class="mobile-header__title" id="mobile-title">Portfolio</span>
+    <span class="mobile-header__spacer" aria-hidden="true"></span>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar" aria-label="Barre latérale">
+      <div class="sidebar__inner">
+        <div class="sidebar__photo-area" id="sidebar-photo-area"></div>
+
+        <nav class="sidebar__nav" aria-label="Navigation principale">
+          <ul>
+            <li><a href="#apropos" class="sidebar__link">À propos</a></li>
+            <li><a href="#competences" class="sidebar__link">Compétences</a></li>
+            <li><a href="#projets" class="sidebar__link">Projets</a></li>
+            <li><a href="#experiences" class="sidebar__link">Expériences</a></li>
+            <li><a href="#certifications" class="sidebar__link">Certifications</a></li>
+            <li><a href="#distinctions" class="sidebar__link">Distinctions</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+
+      <section id="apropos" class="section section--hero" aria-labelledby="apropos-title">
+        <h2 id="apropos-title" class="sr-only">À propos</h2>
+        <div id="about-content"></div>
+      </section>
+
+      <section id="competences" class="section" aria-labelledby="competences-title">
+        <h2 class="section__title" id="competences-title">Compétences</h2>
+        <div id="skills-content"></div>
+      </section>
+
+      <section id="projets" class="section" aria-labelledby="projets-title">
+        <h2 class="section__title" id="projets-title">Projets</h2>
+        <div id="projects-content"></div>
+      </section>
+
+      <section id="experiences" class="section" aria-labelledby="experiences-title">
+        <h2 class="section__title" id="experiences-title">Expériences professionnelles</h2>
+        <div id="experiences-content"></div>
+      </section>
+
+      <section id="certifications" class="section" aria-labelledby="certifications-title">
+        <h2 class="section__title" id="certifications-title">Écoles, certifications, conférences</h2>
+        <div id="certifications-content"></div>
+      </section>
+
+      <section id="distinctions" class="section" aria-labelledby="distinctions-title">
+        <h2 class="section__title" id="distinctions-title">Distinctions et compétitions</h2>
+        <div id="distinctions-content"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>

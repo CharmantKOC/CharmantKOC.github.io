@@ -1,0 +1,232 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\setmainfont{Carlito}
+\usepackage[top=1.2cm,bottom=1.2cm,left=1.4cm,right=1.4cm]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{needspace}
+
+% Polices d'icônes (Font Awesome, fichiers .ttf placés à côté de ce .tex)
+\newfontfamily\FAsolid{fa-solid-900.ttf}[Path=./]
+\newfontfamily\FAbrands{fa-brands-400.ttf}[Path=./]
+
+\definecolor{accent}{HTML}{1E77B8}
+\definecolor{muted}{HTML}{555555}
+\definecolor{todo}{HTML}{C00000}
+
+% ---------- PORTFOLIO (champ à renseigner) ----------
+% 1) Remplace l'adresse ci-dessous (sans https://)  2) Passe \portfolioreadyfalse en \portfolioreadytrue
+%    Tant que c'est « false », l'adresse s'affiche en rouge pour ne pas l'oublier.
+\newif\ifportfolioready
+\portfolioreadyfalse
+\newcommand{\portfoliourl}{portfolio.example.com}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\renewcommand{\arraystretch}{1.0}
+\setlist[itemize]{leftmargin=1.1em,itemsep=1pt,topsep=1pt,parsep=0pt,label=\textcolor{accent}{\textbullet}}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0pt}{}[\vspace{-5pt}\textcolor{accent}{\rule{\linewidth}{0.5pt}}]
+\titlespacing*{\section}{0pt}{11pt}{5pt}
+
+% Marqueur « à compléter » (rouge) : à supprimer avant envoi
+\newcommand{\todo}[1]{\textcolor{todo}{[#1]}}
+
+% \cvitem{date}{titre / lieu}{contenu}
+% Ligne de contact : \contact{police}{code}{texte}
+\newcommand{\contact}[3]{{\color{accent}\makebox[1.3em][c]{#1\symbol{#2}}}\,#3\par\vspace{3pt}}
+
+% ---------- PHOTO ----------
+% Dépose simplement ta photo dans le dossier du projet, sous l'un de ces noms :
+%   img1.png, photo.jpg, photo.jpeg ou photo.png
+% Elle est cadrée automatiquement en cercle (portrait, paysage ou carré, peu importe).
+% Sans photo, un cercle gris « Photo » s'affiche.
+\def\photofile{}
+\IfFileExists{img1.png}{\def\photofile{img1.png}}{%
+ \IfFileExists{photo.jpg}{\def\photofile{photo.jpg}}{%
+ \IfFileExists{photo.jpeg}{\def\photofile{photo.jpeg}}{%
+ \IfFileExists{photo.png}{\def\photofile{photo.png}}{}}}}
+
+\newsavebox{\photobox}
+\newlength{\photoshift}
+\newcommand{\profilephoto}{%
+  \ifx\photofile\empty
+    \begin{tikzpicture}
+      \fill[black!10] (0,0) circle (1.3cm);
+      \node[muted] at (0,0) {\small Photo};
+      \draw[accent,line width=0.8pt] (0,0) circle (1.3cm);
+    \end{tikzpicture}%
+  \else
+    % on remplit le cercle : mise à l'échelle par la hauteur, ou par la largeur si l'image est en portrait
+    \sbox{\photobox}{\includegraphics[height=2.6cm]{\photofile}}%
+    \setlength{\photoshift}{0pt}%
+    \ifdim\wd\photobox<2.6cm
+      \sbox{\photobox}{\includegraphics[width=2.6cm]{\photofile}}%
+      % portrait : on remonte un peu le cadrage vers le haut (là où se trouve en général le visage)
+      \setlength{\photoshift}{\dimexpr(\ht\photobox-2.6cm)*3/10\relax}%
+    \fi
+    \begin{tikzpicture}
+      \begin{scope}
+        \clip (0,0) circle (1.3cm);
+        \node[inner sep=0pt,yshift=-\photoshift] at (0,0) {\usebox{\photobox}};
+      \end{scope}
+      \draw[accent,line width=0.8pt] (0,0) circle (1.3cm);
+    \end{tikzpicture}%
+  \fi}
+
+\newlength{\dcol}\setlength{\dcol}{2.2cm}
+\newcommand{\cvitem}[3]{%
+  \par\noindent\hangindent=\dcol\hangafter=1\raggedright
+  \makebox[\dcol][l]{\color{muted}\small #1}#2\par
+  \def\cvtmp{#3}\ifx\cvtmp\empty\else
+    \noindent\hspace*{\dcol}\begin{minipage}[t]{\dimexpr\linewidth-\dcol\relax}\raggedright #3\end{minipage}\par
+  \fi
+  \vspace{6pt}}
+
+% Icône ordinateur : lien vers le dépôt GitHub d'un projet
+\newcommand{\repolink}[1]{\href{#1}{\color{accent}{\FAsolid\symbol{"F5FC}}}}
+% Icône document : lien vers le rapport (Drive)
+\newcommand{\reportlink}[1]{\href{#1}{\color{accent}{\FAsolid\symbol{"F15C}}}}
+% Légende alignée à droite sur la ligne d'un titre de rubrique : \seclegend{code icône}{texte}
+\newcommand{\seclegend}[2]{\hfill{\normalfont\small\color{muted}{\color{accent}\FAsolid\symbol{#1}}\,#2}}
+\newlength{\scol}\setlength{\scol}{3.3cm}
+\newcommand{\skill}[2]{\par\noindent\hangindent=\scol\hangafter=1\raggedright
+  \makebox[\scol][l]{\bfseries\color{accent}#1}#2\par\vspace{2pt}}
+
+\begin{document}
+\raggedright
+
+% ---------- EN-TÊTE ----------
+\noindent
+\begin{minipage}[c]{2.7cm}\profilephoto\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-2.7cm-4.8cm-8mm\relax}\raggedright
+  {\fontsize{16.5}{20}\selectfont\bfseries\color{accent}\mbox{Kayossi Olouwa Charmant BALOGOUN}}\\[6pt]
+  {\fontsize{13}{16}\selectfont\bfseries Modélisation et Simulation Numérique}\\[2pt]
+  {\color{muted} Élève ingénieur en Génie Mathématique et Modélisation}
+\end{minipage}\hfill
+\begin{minipage}[c]{4.8cm}\raggedright\small
+  \contact{\FAsolid}{"F0AC}{\ifportfolioready\href{https://\portfoliourl}{\portfoliourl}\else\textcolor{todo}{\portfoliourl}\fi}
+  \contact{\FAsolid}{"F0E0}{\href{mailto:charmantbalogoun@gmail.com}{charmantbalogoun@gmail.com}}
+  \contact{\FAbrands}{"F09B}{\href{https://github.com/CharmantKOC}{CharmantKOC}}
+  \contact{\FAbrands}{"F08C}{\href{https://www.linkedin.com/in/charmantblg}{charmantblg}}
+\end{minipage}
+
+\vspace{2pt}
+
+% ---------- PROFIL ----------
+\section*{Profil}
+Élève ingénieur en fin de cycle, spécialisé en modélisation et simulation numérique, avec un socle solide en
+analyse numérique et en équations différentielles. Mes intérêts portent sur la modélisation des systèmes dynamiques,
+la simulation de phénomènes complexes et ses interactions avec l'intelligence artificielle (prédiction, optimisation,
+aide à la décision). Je recherche un stage de fin d'études ou une poursuite en master ou en doctorat,
+dans un environnement de recherche et d'innovation en modélisation, contrôle et calcul scientifique, sur des problématiques réelles.
+
+% ---------- FORMATION ----------
+\section*{Formation}
+\cvitem{2024-Présent}
+ {\textbf{Cycle ingénieur}, Modélisation et Simulation Numérique, École Nationale Supérieure de Génie Mathématique et Modélisation (ENSGMM), UNSTIM, Abomey, Bénin}
+ {\small Cours majeurs : modélisation mathématique, analyse et simulation numérique, optimisation, calcul scientifique, simulation stochastique,
+  modélisation statistique, génie logiciel.}
+\cvitem{2022-2024}
+ {\textbf{Classes préparatoires}, Sciences de l'ingénieur, Institut National Supérieur des classes Préparatoires aux Études d'Ingénieur (INSPEI), UNSTIM, Abomey, Bénin \hfill \textit{Mention Très Bien}}
+ {\small Cours majeurs : analyse, algèbre, analyse complexe, analyse numérique, graphes et optimisation, recherche opérationnelle,
+  modélisation des phénomènes aléatoires, algorithmique, C, MATLAB.}
+\cvitem{2022}
+ {\textbf{Baccalauréat série C}, Sciences techniques, Lycée Houffon d'Abomey, Bénin \hfill \textit{Mention Très Bien}}{}
+
+% ---------- ÉCOLES ----------
+\section*{Écoles et formations}
+\cvitem{Oct. 2026}
+ {\textbf{École de recherche CIMPA « Mathématiques appliquées et Intelligence artificielle »}, IMSP, Dangbo, Bénin}
+ {\small Cours : apprentissage automatique et théorie du contrôle (D.\ Prandi, CNRS) ; mathématiques numériques et apprentissage
+  des EDP aux signaux cérébraux (P.\ Minakowski) ; optimisation sur les graphes ; calcul parallèle et HPC.}
+\cvitem{2024-2025}
+ {\textbf{Certificat en Intelligence artificielle}, programme FORCE-N, Université Numérique Cheikh Hamidou Kane - Mastercard Foundation}{}
+\cvitem{Août 2022}
+ {\textbf{École d'été sur l'Intelligence artificielle (EEIA 2022)}, Fondation Vallet - Bénin Excellence - PNUD, Godomey}{}
+
+% ---------- PROJETS ----------
+\section*{Projets\seclegend{"F5FC}{Dépôt GitHub}}
+\cvitem{2026}
+ {\textbf{Modélisation de la décomposition spinodale par l'équation de Cahn-Hilliard} \hfill \repolink{https://github.com/CharmantKOC/Modelisation-et-simulation-numerique-de-la-decomposition-spinodale-par-equation-de-Cahn-Hilliard}}
+ {\small Modélisation et simulation numérique d'une EDP non linéaire d'ordre quatre, avec discrétisation spectrale par transformée en cosinus discrète (Python).}
+\cvitem{2026}
+ {\textbf{Application des Physics Informed Neural Networks} \hfill \repolink{https://github.com/CharmantKOC/Physics-Informed-Neural-Networks-PINNs-resolution-d-equations-differentielles}}
+ {\small Résolution de trois équations différentielles par réseaux de neurones: projectile, oscillateur amorti et modèle SIR (Python).}
+ \cvitem{2025}
+ {\textbf{Motifs de Turing : modèle de réaction-diffusion de Gray-Scott} \hfill \repolink{https://drive.google.com/file/d/1zA777E19PlPkxRNqL2tHVwHHl5-p4-MG/view?usp=sharing}}
+ {\small Simulation par différences finies du système de Gray-Scott et analyse numérique de la formation de motifs (Python).}
+\cvitem{2025}
+ {\textbf{Reconnaissance vocale de la langue Fon par chaînes de Markov}, ENSGMM \hfill \repolink{https://github.com/CharmantKOC/Markov_Fon}}
+ {
+   \small Modélisation par chaînes de Markov, visualisation des modèles (NetworkX) et interface Streamlit (Python, Matplotlib).
+  }
+\cvitem{2024}
+ {\textbf{Analyse de commentaires clients}, ENSGMM}
+ {\small Traitement de commentaires et tableau de bord interactif (Python, Pandas, WordCloud, Streamlit).}
+
+% ---------- EXPÉRIENCE ----------
+\section*{Expérience professionnelle\seclegend{"F15C}{Rapport}}
+\cvitem{Juil.-sept. 2026}
+ {\textbf{Stage académique}, Systèmes de données et cartographie numérique, Cabinet S Lab, Abomey-Calavi \hfill \reportlink{https://drive.google.com/file/d/1_ELQTKoKy-eciZEjD1EQv7nKonXfXU5Y/view?usp=sharing}}
+ {\small Systèmes d'information géographique (SIG), traitement de données spatiales, cartographie par drone et développement d'une plateforme numérique métier (Python, Django, Leaflet.js).}
+\cvitem{Août 2025}
+ {\textbf{Stage académique}, Statistiques et analyse de données, Direction Départementale de la Santé du Zou, Abomey \hfill \reportlink{https://drive.google.com/file/d/1j5Kd7Ho0rU9hWMbA87faC99PteDjQBc5/view?usp=sharing}}
+ {
+   \small Analyse et modélisation des tendances épidémiologiques du paludisme dans le département du Zou ; tableau de bord interactif pour le suivi et l'aide à la décision (Python, Matplotlib, Streamlit).
+  }
+
+% ---------- CERTIFICATIONS ----------
+\section*{Certifications et conférences}
+\cvitem{Juin 2026}{\small \textbf{IOCMA 2026}, 2\textsuperscript{nd} International Online Conference on Mathematics and Applications, MDPI}{}
+\cvitem{Sept. 2026}{\small \textbf{ML Summer School 2026}, Cohere Labs Open Science Community}{}
+\cvitem{Déc. 2025}{\small \textbf{Modélisation par équations structurelles sous R} (santé, environnement, agronomie), LABEF, Université d'Abomey-Calavi}{}
+\cvitem{Juin 2024}{\small \textbf{Mise en œuvre des réseaux de neurones génératifs profonds} (usurpation d'identité numérique), ANSALB / CITA, Cotonou}{}
+%\cvitem{}{\small Certificats Kaggle}{}
+
+% ---------- DISTINCTIONS ----------
+\Needspace{12\baselineskip}
+\section*{Distinctions : hackathons et concours}
+\cvitem{2026}
+ {\textbf{1\textsuperscript{er} prix}, Hackathon Confédération des Institutions Financières
+d'Afrique de l'Ouest, DigiCoop-WA+, équipe Vigie-Coop}
+ {\small  Conception d'un système de filtrage des clients et détection d'opérations frauduleuses dans les coopératives financières.}
+\cvitem{2025}
+ {\textbf{3\textsuperscript{e} prix national}, NASA International Space Apps Challenge, équipe CMAK}
+ {\small Prévision de la qualité de l'air à partir de données d'observation de la Terre (machine learning, API FastAPI).}
+\cvitem{2025}
+ {\textbf{3\textsuperscript{e} prix}, FRIARE Hackathon « Smart Cities », équipe CCP}
+ {\small Détection automatique de plaques d'immatriculation via caméras routières, vérification en base de données et alertes de non-conformité (Python, OpenCV, YOLOv8, Pandas).}
+\cvitem{2024}
+ {\textbf{Finaliste}, Kyfax AI Contest, ENSGMM, équipe JoLyCH}
+ {\small Agent IA jouant au jeu traditionnel Sholo Guti (16 soldats), avec optimisation des décisions (Python).}
+\cvitem{2022}
+ {\textbf{3\textsuperscript{e} prix}, MIFY Artificial Intelligence Contest, équipe Yesunana}
+ {\small Agent IA jouant au Morabaraba.}
+%\cvitem{2025}
+ %{\textbf{Participations}}
+ %{\small Coupe d'Afrique des Nations en Science des Données (DataTour 2025), phase nationale (équipe ChAy).}
+
+% ---------- OUTILS ----------
+\section*{Outils et technologies}
+\skill{Programmation}{C, MATLAB, Python, Fortran, R}
+\skill{Données et IA}{NumPy, SciPy, Pandas, Matplotlib}
+\skill{Développement}{FastAPI, Streamlit}
+\skill{Environnement}{Linux, Git, LaTeX}
+%\skill{CAO}{AutoCAD, TopSolid}
+
+% ---------- LANGUES ----------
+\section*{Langues et centres d'intérêt}
+\skill{Langues}{Français : C2 \,·\, Anglais : B1}
+\skill{Centres d'intérêt}{Basketball, piano}
+
+\end{document}

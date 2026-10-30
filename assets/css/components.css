@@ -1,0 +1,186 @@
+/* Composants des sections */
+
+/* À propos */
+
+/* Nom */
+.hero-name {
+  font-family: var(--font-heading);
+  font-size: clamp(2.35rem, 5vw, 3.85rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.0;
+  margin-bottom: 12px;
+}
+
+.hero-name__first { color: var(--color-text); }
+.hero-name__last  { color: var(--color-primary); }
+
+/* Titre professionnel */
+.hero-title-line {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+/* Établissement */
+.hero-institution-line {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+
+/* Biographie */
+.hero-bio {
+  max-width: 1000px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+/* Domaines d'intérêt */
+.interests-container {
+  margin-bottom: 28px;
+}
+
+.interests__label {
+  font-size: 0.75rem;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+}
+
+.interests-inline {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  line-height: 1.8;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.interest-separator {
+  color: var(--color-primary);
+  margin: 0 10px;
+  font-size: 1rem;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Boutons ronds : CV, e-mail, LinkedIn, GitHub */
+.hero-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.profile-icon-link {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #343A40;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  transition: background var(--t), transform 120ms ease, box-shadow var(--t);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.profile-icon-link:hover {
+  background: var(--color-primary);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 119, 184, 0.35);
+}
+
+.profile-icon-link--cv {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Compétences */
+.skills-list { display: flex; flex-direction: column; gap: 18px; }
+.skill-group__title { font-size: 1rem; font-weight: 600; line-height: 1.4; color: var(--color-primary); }
+.skill-group__items { margin-top: 2px; font-size: 0.9375rem; line-height: 1.6; color: var(--color-text); }
+
+.section-note { margin-bottom: 14px; font-size: 0.9375rem; color: var(--color-text-secondary); }
+.section-note__icon { display: inline-block; vertical-align: -3px; color: var(--color-primary); }
+
+/* Projets */
+.project-list { display: flex; flex-direction: column; gap: 18px; }
+.project { display: flex; gap: 10px; align-items: flex-start; }
+.project .entry__date { padding-top: 2px; }
+.project__icons { display: flex; gap: 6px; flex: none; width: 22px; padding-top: 3px; color: var(--color-primary); }
+.project__icons a { display: inline-flex; color: var(--color-primary); }
+.project__icons a:hover { color: var(--color-primary-hover); }
+.project__icons .icon-off { display: inline-flex; color: #B8C0C8; cursor: default; }
+.project__body { min-width: 0; flex: 1; }
+.project__title { font-size: 1rem; font-weight: 500; line-height: 1.4; }
+.legend { font-size: 0.8125rem; line-height: 1.5; color: var(--color-text-secondary); }
+.legend--abstract { font-style: italic; }
+.legend b { font-weight: 500; color: var(--color-text); }
+
+/* Images et vidéos des projets */
+.project__media {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 320px));
+  gap: 14px;
+  margin-top: 12px;
+}
+.media-item { margin: 0; }
+.media-item img,
+.media-item video,
+.media-item iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: #F7F9FB;
+}
+.media-item iframe { border: 1px solid var(--color-border); }
+.media-item img { cursor: zoom-in; transition: box-shadow var(--t); }
+.media-item img:hover { box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12); }
+.media-item figcaption { margin-top: 5px; font-size: 0.75rem; line-height: 1.4; color: var(--color-text-secondary); }
+
+/* Image agrandie */
+.lightbox {
+  margin: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: 94vw;
+  max-height: 92vh;
+}
+.lightbox::backdrop { background: rgba(0, 0, 0, 0.8); }
+.lightbox img {
+  max-width: 94vw;
+  max-height: 92vh;
+  border-radius: 4px;
+  background: #fff;
+  cursor: zoom-out;
+}
+
+/* Expériences, certifications, distinctions */
+.entry-list { display: flex; flex-direction: column; gap: 12px; }
+.entry { display: flex; gap: 10px; align-items: flex-start; }
+.entry__icon { flex: none; padding-top: 3px; color: var(--color-primary); display: inline-flex; }
+.entry__main { flex: 1; min-width: 0; }
+.entry__title { font-size: 1rem; font-weight: 500; line-height: 1.4; }
+.entry__date { flex: none; width: 2.6rem; padding-top: 3px; text-align: right; font-size: 0.8125rem; line-height: 1.4; color: var(--color-text-secondary); font-variant-numeric: tabular-nums; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero-name { font-size: 2.25rem; }
+}
